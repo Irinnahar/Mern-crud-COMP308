@@ -8,7 +8,7 @@ import { Pagination } from '@material-ui/lab';
 import swal from 'sweetalert';
 const axios = require('axios');
 
-export default class Dashboard extends Component {
+export default class NurseDashboard extends Component {
   constructor() {
     super();
   }
@@ -23,7 +23,7 @@ export default class Dashboard extends Component {
   render() {
     return (
      <div>
-       <h1>Welcome to dashboard</h1>
+       <h1>Welcome to Nurse Dashboard</h1>
        <div>
        <Button
             className="button_style"

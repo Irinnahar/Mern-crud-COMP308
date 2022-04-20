@@ -5,7 +5,8 @@ import { BrowserRouter, Link } from 'react-router-dom';
 
 import Login from './Login';
 import Register from './Register';
-import Dashboard from './Dashboard';
+import NurseDashboard from './NurseDashboard';
+import PatientDashboard from './PatientDashboard'
 import './Login.css';
 
 ReactDOM.render(
@@ -13,7 +14,9 @@ ReactDOM.render(
         <Switch>
             <Route exact path='/' component={Login} />
             <Route exact path='/register' component={Register} />
-            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/nurse-dashboard' component={NurseDashboard} />
+            <Route path='/patient-dashboard' component={PatientDashboard} />
+
             {/* <Route component={NotFound}/> */}
         </Switch>
     </BrowserRouter>,

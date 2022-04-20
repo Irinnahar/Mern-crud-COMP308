@@ -10,7 +10,8 @@ export default class Login extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      user_type: ''
     };
   }
 
@@ -26,7 +27,14 @@ export default class Login extends React.Component {
     }).then((res) => {
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user_id', res.data.id);
-      this.props.history.push('/dashboard');
+      localStorage.setItem('user-type', this.state.user_type)
+
+      if(this.state.user_type === 'nurse') {
+        this.props.history.push('/nurse-dashboard');
+      } else if (this.state.user_type === 'patient'){
+        this.props.history.push('/patient-dashboard');
+
+      }
     }).catch((err) => {
       if (err.response && err.response.data && err.response.data.errorMessage) {
         swal({
@@ -36,6 +44,7 @@ export default class Login extends React.Component {
         });
       }
     });
+    console.log(this.state)
   }
 
   render() {
@@ -65,6 +74,17 @@ export default class Login extends React.Component {
             value={this.state.password}
             onChange={this.onChange}
             placeholder="Password"
+            required
+          />
+          <br /><br />
+          <TextField
+            id="standard-basic"
+            type="text"
+            autoComplete="off"
+            name="user_type"
+            value={this.state.user_type}
+            onChange={this.onChange}
+            placeholder="User Type"
             required
           />
           <br /><br />

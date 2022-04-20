@@ -9,7 +9,8 @@ export default class Register extends React.Component {
     this.state = {
       username: '',
       password: '',
-      confirm_password: ''
+      confirm_password: '',
+      user_type: ''
     };
   }
 
@@ -20,6 +21,7 @@ export default class Register extends React.Component {
     axios.post('http://localhost:2000/register', {
       username: this.state.username,
       password: this.state.password,
+      user_type: this.state.user_type
     }).then((res) => {
       swal({
         text: res.data.title,
@@ -77,6 +79,17 @@ export default class Register extends React.Component {
             required
           />
           <br /><br />
+          <TextField
+            id="standard-basic"
+            type="text"
+            autoComplete="off"
+            name="user_type"
+            value={this.state.user_type}
+            onChange={this.onChange}
+            placeholder="User Type"
+            required
+          />
+           <br /><br />
           <Button
             className="button_style"
             variant="contained"
