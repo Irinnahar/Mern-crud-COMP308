@@ -13,13 +13,22 @@
   "author": "Foram Sojitra",
   "license": "ISC",
   "dependencies": {
+    "@tensorflow/tfjs": "^1.7.0",
     "bcrypt": "^5.0.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fs": "^0.0.1-security",
     "imdb-api": "^4.4.1",
+    "jpickle": "^0.4.1",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "ml-svm": "^2.1.2",
     "mongoose": "^5.11.7",
-    "multer": "^1.4.2"
+    "multer": "^1.4.2",
+    "node-pandas-js": "^1.0.7",
+    "pickle": "^0.2.0",
+    "random-forest": "^0.0.7",
+    "random-forest-classifier": "^0.6.0",
+    "scikit-learn": "^0.1.0"
   }
 }
