@@ -27,6 +27,7 @@
     "multer": "^1.4.2",
     "node-pandas-js": "^1.0.7",
     "pickle": "^0.2.0",
+    "random-forest": "^0.0.7",
     "random-forest-classifier": "^0.6.0",
     "scikit-learn": "^0.1.0"
   }
