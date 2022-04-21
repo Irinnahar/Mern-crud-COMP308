@@ -9,6 +9,8 @@ var multer = require('multer'),
 var mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost/productDB");
 var user = require("./model/user.js");
+var symptiomController = require('./controllers/SymptomPredictionController.js');
+const saltRounds = 10;
 
 
 app.use(cors());
@@ -18,9 +20,10 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: false
 }));
 
+
 app.use("/", (req, res, next) => {
   try {
-    if (req.path == "/login" || req.path == "/register" || req.path == "/") {
+    if (req.path == "/login" || req.path == "/register" || req.path == "/" || req.path=="/symptom-prediction") {
       next();
     } else {
       /* decode jwt token if authorized*/
@@ -58,10 +61,11 @@ app.post("/login", (req, res) => {
       user.find({ username: req.body.username }, (err, data) => {
         if (data.length > 0) {
 
-          if (bcrypt.compareSync(data[0].password, req.body.password)) {
+          if (bcrypt.compareSync(req.body.password,data[0].password)) {
             checkUserAndGenerateToken(data[0], req, res);
           } else {
-
+            console.log(req.body.password);
+            console.log(data[0].password);
             res.status(400).json({
               errorMessage: 'Username or password is incorrect!',
               status: false
@@ -101,7 +105,7 @@ app.post("/register", (req, res) => {
 
           let User = new user({
             username: req.body.username,
-            password: req.body.password,
+            password: bcrypt.hashSync(req.body.password, saltRounds),
             user_type: req.body.user_type
           });
           User.save((err, data) => {
@@ -141,6 +145,9 @@ app.post("/register", (req, res) => {
   }
 });
 
+//require('./routes/SymptomPredcitionRoutes.js')(app);
+app.post('/symptom-prediction', symptiomController.Prediction); 
+
 function checkUserAndGenerateToken(data, req, res) {
   jwt.sign({ user: data.username, id: data._id }, 'shhhhh11111', { expiresIn: '1d' }, (err, token) => {
     if (err) {
@@ -149,6 +156,7 @@ function checkUserAndGenerateToken(data, req, res) {
         errorMessage: err,
       });
     } else {
+      res.cookie('token', token);
       res.json({
         message: 'Login Successfully.',
         token: token,
@@ -157,6 +165,7 @@ function checkUserAndGenerateToken(data, req, res) {
     }
   });
 }
+
 
 app.listen(2000, () => {
   console.log("Server is Runing On port 2000");
